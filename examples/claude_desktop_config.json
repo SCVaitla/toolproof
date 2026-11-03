@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "slack-twin": {
+      "command": "toolproof",
+      "args": ["serve", "--twin"]
+    },
+    "slack": {
+      "command": "toolproof",
+      "args": ["serve"],
+      "env": {
+        "SLACK_BOT_TOKEN": "xoxb-your-token"
+      }
+    }
+  }
+}

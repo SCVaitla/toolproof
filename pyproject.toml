@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "toolproof"
+version = "0.1.0"
+description = "A production-grade Slack MCP server plus a chaos-twin eval harness that grades LLM tool use by the world it leaves behind."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Saicharith Vaitla" }]
+keywords = ["mcp", "model-context-protocol", "llm", "evals", "slack", "agents", "tool-calling"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = [
+  "mcp>=1.20,<2",
+  "httpx>=0.27,<1",
+  "pydantic>=2.7,<3",
+  "pyyaml>=6.0",
+  "jsonschema>=4.20",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23", "ruff>=0.6"]
+
+[project.scripts]
+toolproof = "toolproof.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/SCVaitla/toolproof"
+Issues = "https://github.com/SCVaitla/toolproof/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/toolproof"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "ASYNC", "RUF"]
+ignore = ["RUF001", "RUF003", "B008", "E501"]  # line length is enforced by `ruff format`

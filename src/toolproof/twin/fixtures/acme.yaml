@@ -1,0 +1,68 @@
+# Acme Corp: a deliberately messy Slack workspace for evals.
+# - 60 generated channels sort *before* the interesting ones, so resolving "#releases" by name
+#   requires walking several pages of conversations.list.
+# - Two people named Priya, a private channel the bot can't see, an archived channel,
+#   and an announcement buried under 30 newer messages.
+seed: 7
+team: {id: T0ACME, name: Acme}
+bot:
+  user_id: U0BOT1
+  token: xoxb-twin-acme-token
+  scopes: [channels:read, groups:read, channels:history, groups:history, chat:write,
+           reactions:write, users:read, users:read.email]
+
+users:
+  - {id: U01PRIYA, name: priya, real_name: Priya Shah, email: priya.shah@acme.dev, title: Engineering Manager}
+  - {id: U02MARCUS, name: marcus, real_name: Marcus Webb, email: marcus@acme.dev, title: SRE}
+  - {id: U03DIEGO, name: diego, real_name: Diego Alvarez, email: diego@acme.dev, title: Backend Engineer}
+  - {id: U04LENA, name: lena, real_name: Lena Fischer, email: lena@acme.dev, title: Product Designer}
+  - {id: U05AIKO, name: aiko, real_name: Aiko Tanaka, email: aiko@acme.dev, title: Product Manager}
+  - {id: U06PRIYAK, name: priya.k, real_name: Priya Kumar, email: priya.kumar@acme.dev, title: Data Scientist}
+  - {id: U0BOT1, name: toolproof-bot, real_name: toolproof bot, is_bot: true}
+
+channels:
+  - {id: C0GENERAL, name: general, topic: Company-wide announcements}
+  - {id: C0RELEASES, name: releases, topic: Release train and deploy announcements}
+  - {id: C0INCIDENT, name: incidents, topic: Active incidents. One thread per incident.}
+  - {id: C0ENGBACK, name: eng-backend, topic: Backend engineering}
+  - {id: C0DESIGN, name: design, topic: "Design crit (moved to #design-v2)", is_archived: true}
+  - {id: C0ONCALL, name: oncall, topic: On-call coordination, is_private: true,
+     members: [U02MARCUS, U03DIEGO, U0BOT1]}
+  - {id: C0LEADERS, name: leadership, topic: Leadership, is_private: true, members: [U01PRIYA, U05AIKO]}
+  - {id: C0RANDOM, name: random, topic: Water cooler}
+
+generate:
+  channels: 60
+  users: 40
+  filler:
+    - {channel: general, count: 30, start_ts: 1730010100}
+    - {channel: random, count: 80, start_ts: 1729000000}
+
+messages:
+  - {channel: releases, ts: "1730001000.000100", user: U01PRIYA, text: "Release 4.2 is cut. Deploying to staging now."}
+  - {channel: releases, ts: "1730004600.000200", user: U03DIEGO, text: "4.2 staging looks good, promoting to prod at 3pm"}
+  - {channel: releases, ts: "1730006000.000250", user: U06PRIYAK, text: "Dashboards for 4.2 adoption are live"}
+  - {channel: releases, ts: "1730008200.000300", user: U01PRIYA,
+     text: "Prod deploy for 4.2 is complete :tada: please report any issues in this thread"}
+
+  - {channel: incidents, ts: "1730002000.000100", user: U02MARCUS, text: "INC-481: elevated 5xx on checkout API. Investigating."}
+  - {channel: incidents, ts: "1730002100.000200", user: U03DIEGO, thread_ts: "1730002000.000100",
+     text: "Looks like connection pool exhaustion on payments-db"}
+  - {channel: incidents, ts: "1730002400.000300", user: U02MARCUS, thread_ts: "1730002000.000100",
+     text: "Mitigated by raising the payments-db connection pool size from 50 to 200. Monitoring."}
+  - {channel: incidents, ts: "1730003000.000400", user: U05AIKO, thread_ts: "1730002000.000100",
+     text: "Customer comms drafted, waiting on RCA"}
+  - {channel: incidents, ts: "1730009000.000500", user: U04LENA, text: "INC-482: login page images broken on Safari"}
+
+  - {channel: general, ts: "1730010000.000100", user: U05AIKO,
+     text: "The offsite is moved to Nov 14. Please RSVP by Friday with a :+1: reaction on this message."}
+
+  - {channel: eng-backend, ts: "1730005000.000100", user: U03DIEGO,
+     text: "Who owns the rate-limiter refactor? Need a reviewer for PR #2291"}
+
+  - {channel: design, ts: "1729990000.000100", user: U04LENA, text: "Crit notes from last week are in the doc"}
+
+  - {channel: oncall, ts: "1730007000.000100", user: U02MARCUS, text: "This week: primary Marcus, secondary Diego"}
+
+  - {channel: leadership, ts: "1730007500.000100", user: U01PRIYA,
+     text: "Confidential: acquisition talks with Globex continue next week"}

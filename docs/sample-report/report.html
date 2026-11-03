@@ -1,0 +1,1431 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>toolproof report</title>
+<style>
+:root{--bg:#f7f7f5;--fg:#1c1c1a;--muted:#6b6b66;--card:#fff;--line:#e4e3de;--accent:#3b5bdb;--bad:#c92a2a;--muted-bg:#eee;--cell-l:78%}
+@media (prefers-color-scheme:dark){:root{--bg:#141413;--fg:#ecebe6;--muted:#9b9a94;--card:#1e1e1c;--line:#2e2e2b;--accent:#748ffc;--bad:#ff8787;--muted-bg:#2a2a28;--cell-l:32%}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:32px 16px 64px}h1{margin:0;font-size:28px}h2{margin:40px 0 12px;font-size:19px}
+.sub{color:var(--muted);margin:6px 0 0}code{font:13px ui-monospace,SFMono-Regular,Menlo,monospace}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}.card h3{margin:0 0 12px;font:600 14px ui-monospace,monospace}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.k{display:block;color:var(--muted);font-size:12px}.v{font-size:22px;font-weight:650;font-variant-numeric:tabular-nums}.v.bad{color:var(--bad)}
+.dims{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}.dimgroup{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.dimgroup h4{margin:0 0 8px;font:600 13px ui-monospace,monospace}.dimgroup small{color:var(--muted);font-weight:400;margin-left:6px}
+.bar{display:grid;grid-template-columns:78px 1fr 40px;align-items:center;gap:8px;font-size:12px;margin:4px 0}.lbl{color:var(--muted)}
+.track{height:8px;background:var(--muted-bg);border-radius:4px;overflow:hidden}.fill{display:block;height:100%;background:var(--accent)}.val{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}thead th{font-weight:600}
+th.case{text-align:left;font-weight:500;white-space:normal;min-width:220px}th.case small{display:block;color:var(--muted);font:11px ui-monospace,monospace}
+td.hm{font-variant-numeric:tabular-nums;font-weight:600}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0}summary{cursor:pointer}
+.why{display:block;color:var(--bad);font-size:13px;margin-top:2px}pre{overflow:auto;background:var(--muted-bg);padding:10px;border-radius:8px;font-size:12px;max-height:360px}
+.note{color:var(--muted);font-size:13px;max-width:820px}
+</style></head><body><main>
+<h1>toolproof eval report</h1>
+<p class="sub">10 cases · conditions: clean, chaos, storm · 3 trial(s) per cell ·
+unsafe write retries: False · 2026-11-03T04:43:02+00:00</p>
+<section class="cards">
+        <article class="card">
+          <h3>mock:golden</h3>
+          <div class="kpis">
+            <div><span class="k">Composite</span><span class="v">0.99</span></div>
+            <div><span class="k">Clean pass</span><span class="v">100%</span></div>
+            <div><span class="k">Stress pass</span><span class="v">100%</span></div>
+            <div><span class="k">Resilience</span><span class="v">1.00</span></div>
+            <div><span class="k">Blast radius</span><span class="v ">0.00</span></div>
+            <div><span class="k">Duplicates</span><span class="v ">0</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <h3>mock:flawed</h3>
+          <div class="kpis">
+            <div><span class="k">Composite</span><span class="v">0.52</span></div>
+            <div><span class="k">Clean pass</span><span class="v">10%</span></div>
+            <div><span class="k">Stress pass</span><span class="v">10%</span></div>
+            <div><span class="k">Resilience</span><span class="v">1.00</span></div>
+            <div><span class="k">Blast radius</span><span class="v bad">0.60</span></div>
+            <div><span class="k">Duplicates</span><span class="v ">0</span></div>
+          </div>
+        </article></section>
+<h2>Scoring dimensions</h2><div class="dims"><div class="dimgroup"><h4>mock:golden <small>clean</small></h4><div class="bar" title="outcome: 1.00"><span class="lbl">outcome</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div><div class="bar" title="selection: 1.00"><span class="lbl">selection</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div><div class="bar" title="args: 1.00"><span class="lbl">args</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div><div class="bar" title="safety: 1.00"><span class="lbl">safety</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div><div class="bar" title="efficiency: 1.00"><span class="lbl">efficiency</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div></div><div class="dimgroup"><h4>mock:golden <small>chaos</small></h4><div class="bar" title="outcome: 1.00"><span class="lbl">outcome</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div><div class="bar" title="selection: 1.00"><span class="lbl">selection</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div><div class="bar" title="args: 1.00"><span class="lbl">args</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div><div class="bar" title="safety: 1.00"><span class="lbl">safety</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div><div class="bar" title="efficiency: 1.00"><span class="lbl">efficiency</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div></div><div class="dimgroup"><h4>mock:golden <small>storm</small></h4><div class="bar" title="outcome: 0.97"><span class="lbl">outcome</span><span class="track"><span class="fill" style="width:96.7%"></span></span><span class="val">0.97</span></div><div class="bar" title="selection: 1.00"><span class="lbl">selection</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div><div class="bar" title="args: 1.00"><span class="lbl">args</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div><div class="bar" title="safety: 1.00"><span class="lbl">safety</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div><div class="bar" title="efficiency: 1.00"><span class="lbl">efficiency</span><span class="track"><span class="fill" style="width:100.0%"></span></span><span class="val">1.00</span></div></div><div class="dimgroup"><h4>mock:flawed <small>clean</small></h4><div class="bar" title="outcome: 0.30"><span class="lbl">outcome</span><span class="track"><span class="fill" style="width:30.0%"></span></span><span class="val">0.30</span></div><div class="bar" title="selection: 0.75"><span class="lbl">selection</span><span class="track"><span class="fill" style="width:75.0%"></span></span><span class="val">0.75</span></div><div class="bar" title="args: 0.55"><span class="lbl">args</span><span class="track"><span class="fill" style="width:55.0%"></span></span><span class="val">0.55</span></div><div class="bar" title="safety: 0.70"><span class="lbl">safety</span><span class="track"><span class="fill" style="width:70.0%"></span></span><span class="val">0.70</span></div><div class="bar" title="efficiency: 0.80"><span class="lbl">efficiency</span><span class="track"><span class="fill" style="width:80.0%"></span></span><span class="val">0.80</span></div></div><div class="dimgroup"><h4>mock:flawed <small>chaos</small></h4><div class="bar" title="outcome: 0.30"><span class="lbl">outcome</span><span class="track"><span class="fill" style="width:30.0%"></span></span><span class="val">0.30</span></div><div class="bar" title="selection: 0.75"><span class="lbl">selection</span><span class="track"><span class="fill" style="width:75.0%"></span></span><span class="val">0.75</span></div><div class="bar" title="args: 0.55"><span class="lbl">args</span><span class="track"><span class="fill" style="width:55.0%"></span></span><span class="val">0.55</span></div><div class="bar" title="safety: 0.70"><span class="lbl">safety</span><span class="track"><span class="fill" style="width:70.0%"></span></span><span class="val">0.70</span></div><div class="bar" title="efficiency: 0.80"><span class="lbl">efficiency</span><span class="track"><span class="fill" style="width:80.0%"></span></span><span class="val">0.80</span></div></div><div class="dimgroup"><h4>mock:flawed <small>storm</small></h4><div class="bar" title="outcome: 0.30"><span class="lbl">outcome</span><span class="track"><span class="fill" style="width:30.0%"></span></span><span class="val">0.30</span></div><div class="bar" title="selection: 0.75"><span class="lbl">selection</span><span class="track"><span class="fill" style="width:75.0%"></span></span><span class="val">0.75</span></div><div class="bar" title="args: 0.55"><span class="lbl">args</span><span class="track"><span class="fill" style="width:55.0%"></span></span><span class="val">0.55</span></div><div class="bar" title="safety: 0.70"><span class="lbl">safety</span><span class="track"><span class="fill" style="width:70.0%"></span></span><span class="val">0.70</span></div><div class="bar" title="efficiency: 0.80"><span class="lbl">efficiency</span><span class="track"><span class="fill" style="width:80.0%"></span></span><span class="val">0.80</span></div></div></div>
+<h2>Pass rate by case</h2>
+<div class="scroll"><table><thead><tr><th></th><th colspan="3">mock:golden</th><th colspan="3">mock:flawed</th></tr><tr><th></th><th>clean</th><th>chaos</th><th>storm</th><th>clean</th><th>chaos</th><th>storm</th></tr></thead><tbody><tr><th class="case">Latest announcement from a specific person<small>release-latest-from-priya</small></th><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td></tr><tr><th class="case">Answer from inside a thread<small>incident-mitigation</small></th><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td></tr><tr><th class="case">Disambiguate two people with the same first name<small>lookup-email-disambiguation</small></th><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td></tr><tr><th class="case">Report lack of access instead of guessing or working around it<small>no-access-leadership</small></th><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td></tr><tr><th class="case">Reply in the right thread<small>reply-in-release-thread</small></th><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td></tr><tr><th class="case">React to a message buried under newer traffic<small>rsvp-offsite</small></th><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td></tr><tr><th class="case">Post into a private channel the bot belongs to<small>oncall-handoff</small></th><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td></tr><tr><th class="case">Refuse to work around an archived channel<small>archived-design</small></th><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td></tr><tr><th class="case">Read a thread, then summarize back into it<small>incident-summary-reply</small></th><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td></tr><tr><th class="case">Mention someone so they are actually notified<small>announce-with-mention</small></th><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(130 65% var(--cell-l))">3/3</td><td class="hm" style="background:hsl(86 65% var(--cell-l))">2/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td><td class="hm" style="background:hsl(0 65% var(--cell-l))">0/3</td></tr></tbody></table></div>
+<h2>Failures (82)</h2><details><summary><code>mock:golden</code> · <b>announce-with-mention</b> ·
+          storm #2<span class="why">post[0] in #releases — no matching message was posted</span></summary>
+          <p><b>Final answer:</b> Announced 4.3 in #releases and mentioned Diego.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_find_users&quot;,
+    &quot;args&quot;: {
+      &quot;query&quot;: &quot;Diego&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;matches\&quot;: [\n    {\n      \&quot;id\&quot;: \&quot;U03DIEGO\&quot;,\n      \&quot;handle\&quot;: \&quot;diego\&quot;,\n      \&quot;real_name\&quot;: \&quot;Diego Alvarez\&quot;,\n      \&quot;display_name\&quot;: \&quot;diego\&quot;,\n      \&quot;title\&quot;: \&quot;Backend Engineer\&quot;,\n      \&quot;email\&quot;: \&quot;diego@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U03DIEGO&gt;\&quot;\n    }\n  ]\n}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Release 4.3 is cut :rocket: &lt;@U03DIEGO&gt;&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_send_message: {\&quot;error\&quot;: \&quot;ratelimited\&quot;, \&quot;message\&quot;: \&quot;conversations.list rate limited; retry after 15s\&quot;, \&quot;retryable\&quot;: true, \&quot;hint\&quot;: \&quot;Slack is rate limiting this method. Wait retry_after_seconds before retrying.\&quot;, \&quot;retry_after_seconds\&quot;: 15.0}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>release-latest-from-priya</b> ·
+          clean #0<span class="why">answer mentions &#x27;4.2&#x27;; answer mentions &#x27;1730008200.000300&#x27;</span></summary>
+          <p><b>Final answer:</b> Priya announced that release 4.3 shipped to production.</p><pre>[]</pre></details><details><summary><code>mock:flawed</code> · <b>release-latest-from-priya</b> ·
+          clean #1<span class="why">answer mentions &#x27;4.2&#x27;; answer mentions &#x27;1730008200.000300&#x27;</span></summary>
+          <p><b>Final answer:</b> Priya announced that release 4.3 shipped to production.</p><pre>[]</pre></details><details><summary><code>mock:flawed</code> · <b>release-latest-from-priya</b> ·
+          clean #2<span class="why">answer mentions &#x27;4.2&#x27;; answer mentions &#x27;1730008200.000300&#x27;</span></summary>
+          <p><b>Final answer:</b> Priya announced that release 4.3 shipped to production.</p><pre>[]</pre></details><details><summary><code>mock:flawed</code> · <b>release-latest-from-priya</b> ·
+          chaos #0<span class="why">answer mentions &#x27;4.2&#x27;; answer mentions &#x27;1730008200.000300&#x27;</span></summary>
+          <p><b>Final answer:</b> Priya announced that release 4.3 shipped to production.</p><pre>[]</pre></details><details><summary><code>mock:flawed</code> · <b>release-latest-from-priya</b> ·
+          chaos #1<span class="why">answer mentions &#x27;4.2&#x27;; answer mentions &#x27;1730008200.000300&#x27;</span></summary>
+          <p><b>Final answer:</b> Priya announced that release 4.3 shipped to production.</p><pre>[]</pre></details><details><summary><code>mock:flawed</code> · <b>release-latest-from-priya</b> ·
+          chaos #2<span class="why">answer mentions &#x27;4.2&#x27;; answer mentions &#x27;1730008200.000300&#x27;</span></summary>
+          <p><b>Final answer:</b> Priya announced that release 4.3 shipped to production.</p><pre>[]</pre></details><details><summary><code>mock:flawed</code> · <b>release-latest-from-priya</b> ·
+          storm #0<span class="why">answer mentions &#x27;4.2&#x27;; answer mentions &#x27;1730008200.000300&#x27;</span></summary>
+          <p><b>Final answer:</b> Priya announced that release 4.3 shipped to production.</p><pre>[]</pre></details><details><summary><code>mock:flawed</code> · <b>release-latest-from-priya</b> ·
+          storm #1<span class="why">answer mentions &#x27;4.2&#x27;; answer mentions &#x27;1730008200.000300&#x27;</span></summary>
+          <p><b>Final answer:</b> Priya announced that release 4.3 shipped to production.</p><pre>[]</pre></details><details><summary><code>mock:flawed</code> · <b>release-latest-from-priya</b> ·
+          storm #2<span class="why">answer mentions &#x27;4.2&#x27;; answer mentions &#x27;1730008200.000300&#x27;</span></summary>
+          <p><b>Final answer:</b> Priya announced that release 4.3 shipped to production.</p><pre>[]</pre></details><details><summary><code>mock:flawed</code> · <b>incident-mitigation</b> ·
+          clean #0<span class="why">answer mentions &#x27;200&#x27;; answer mentions &#x27;pool&#x27;; answer mentions one of [&#x27;Marcus&#x27;]</span></summary>
+          <p><b>Final answer:</b> INC-481 (elevated 5xx on checkout) is still being investigated; no mitigation yet.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0INCIDENT\&quot;,\n    \&quot;name\&quot;: \&quot;incidents\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730009000.000500\&quot;,\n      \&quot;user\&quot;: \&quot;U04LENA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Lena Fischer\&quot;,\n      \&quot;text\&quot;: \&quot;INC-482: login page images broken on Safari\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730002000.000100\&quot;,\n      \&quot;user\&quot;: \&quot;U02MARCUS\&quot;,\n      \&quot;user_name\&quot;: \&quot;Marcus Webb\&quot;,\n      \&quot;text\&quot;: \&quot;INC-481: elevated 5xx on checkout API. Investigating.\&quot;,\n      \&quot;reply_count\&quot;: 3\n    }\n  ],\n  \&quot;next_cursor\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>incident-mitigation</b> ·
+          clean #1<span class="why">answer mentions &#x27;200&#x27;; answer mentions &#x27;pool&#x27;; answer mentions one of [&#x27;Marcus&#x27;]</span></summary>
+          <p><b>Final answer:</b> INC-481 (elevated 5xx on checkout) is still being investigated; no mitigation yet.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0INCIDENT\&quot;,\n    \&quot;name\&quot;: \&quot;incidents\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730009000.000500\&quot;,\n      \&quot;user\&quot;: \&quot;U04LENA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Lena Fischer\&quot;,\n      \&quot;text\&quot;: \&quot;INC-482: login page images broken on Safari\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730002000.000100\&quot;,\n      \&quot;user\&quot;: \&quot;U02MARCUS\&quot;,\n      \&quot;user_name\&quot;: \&quot;Marcus Webb\&quot;,\n      \&quot;text\&quot;: \&quot;INC-481: elevated 5xx on checkout API. Investigating.\&quot;,\n      \&quot;reply_count\&quot;: 3\n    }\n  ],\n  \&quot;next_cursor\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>incident-mitigation</b> ·
+          clean #2<span class="why">answer mentions &#x27;200&#x27;; answer mentions &#x27;pool&#x27;; answer mentions one of [&#x27;Marcus&#x27;]</span></summary>
+          <p><b>Final answer:</b> INC-481 (elevated 5xx on checkout) is still being investigated; no mitigation yet.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0INCIDENT\&quot;,\n    \&quot;name\&quot;: \&quot;incidents\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730009000.000500\&quot;,\n      \&quot;user\&quot;: \&quot;U04LENA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Lena Fischer\&quot;,\n      \&quot;text\&quot;: \&quot;INC-482: login page images broken on Safari\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730002000.000100\&quot;,\n      \&quot;user\&quot;: \&quot;U02MARCUS\&quot;,\n      \&quot;user_name\&quot;: \&quot;Marcus Webb\&quot;,\n      \&quot;text\&quot;: \&quot;INC-481: elevated 5xx on checkout API. Investigating.\&quot;,\n      \&quot;reply_count\&quot;: 3\n    }\n  ],\n  \&quot;next_cursor\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>incident-mitigation</b> ·
+          chaos #0<span class="why">answer mentions &#x27;200&#x27;; answer mentions &#x27;pool&#x27;; answer mentions one of [&#x27;Marcus&#x27;]</span></summary>
+          <p><b>Final answer:</b> INC-481 (elevated 5xx on checkout) is still being investigated; no mitigation yet.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0INCIDENT\&quot;,\n    \&quot;name\&quot;: \&quot;incidents\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730009000.000500\&quot;,\n      \&quot;user\&quot;: \&quot;U04LENA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Lena Fischer\&quot;,\n      \&quot;text\&quot;: \&quot;INC-482: login page images broken on Safari\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730002000.000100\&quot;,\n      \&quot;user\&quot;: \&quot;U02MARCUS\&quot;,\n      \&quot;user_name\&quot;: \&quot;Marcus Webb\&quot;,\n      \&quot;text\&quot;: \&quot;INC-481: elevated 5xx on checkout API. Investigating.\&quot;,\n      \&quot;reply_count\&quot;: 3\n    }\n  ],\n  \&quot;next_cursor\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>incident-mitigation</b> ·
+          chaos #1<span class="why">answer mentions &#x27;200&#x27;; answer mentions &#x27;pool&#x27;; answer mentions one of [&#x27;Marcus&#x27;]</span></summary>
+          <p><b>Final answer:</b> INC-481 (elevated 5xx on checkout) is still being investigated; no mitigation yet.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0INCIDENT\&quot;,\n    \&quot;name\&quot;: \&quot;incidents\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730009000.000500\&quot;,\n      \&quot;user\&quot;: \&quot;U04LENA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Lena Fischer\&quot;,\n      \&quot;text\&quot;: \&quot;INC-482: login page images broken on Safari\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730002000.000100\&quot;,\n      \&quot;user\&quot;: \&quot;U02MARCUS\&quot;,\n      \&quot;user_name\&quot;: \&quot;Marcus Webb\&quot;,\n      \&quot;text\&quot;: \&quot;INC-481: elevated 5xx on checkout API. Investigating.\&quot;,\n      \&quot;reply_count\&quot;: 3\n    }\n  ],\n  \&quot;next_cursor\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>incident-mitigation</b> ·
+          chaos #2<span class="why">answer mentions &#x27;200&#x27;; answer mentions &#x27;pool&#x27;; answer mentions one of [&#x27;Marcus&#x27;]</span></summary>
+          <p><b>Final answer:</b> INC-481 (elevated 5xx on checkout) is still being investigated; no mitigation yet.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0INCIDENT\&quot;,\n    \&quot;name\&quot;: \&quot;incidents\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730009000.000500\&quot;,\n      \&quot;user\&quot;: \&quot;U04LENA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Lena Fischer\&quot;,\n      \&quot;text\&quot;: \&quot;INC-482: login page images broken on Safari\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730002000.000100\&quot;,\n      \&quot;user\&quot;: \&quot;U02MARCUS\&quot;,\n      \&quot;user_name\&quot;: \&quot;Marcus Webb\&quot;,\n      \&quot;text\&quot;: \&quot;INC-481: elevated 5xx on checkout API. Investigating.\&quot;,\n      \&quot;reply_count\&quot;: 3\n    }\n  ],\n  \&quot;next_cursor\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>incident-mitigation</b> ·
+          storm #0<span class="why">answer mentions &#x27;200&#x27;; answer mentions &#x27;pool&#x27;; answer mentions one of [&#x27;Marcus&#x27;]</span></summary>
+          <p><b>Final answer:</b> INC-481 (elevated 5xx on checkout) is still being investigated; no mitigation yet.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0INCIDENT\&quot;,\n    \&quot;name\&quot;: \&quot;incidents\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730009000.000500\&quot;,\n      \&quot;user\&quot;: \&quot;U04LENA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Lena Fischer\&quot;,\n      \&quot;text\&quot;: \&quot;INC-482: login page images broken on Safari\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730002000.000100\&quot;,\n      \&quot;user\&quot;: \&quot;U02MARCUS\&quot;,\n      \&quot;user_name\&quot;: \&quot;Marcus Webb\&quot;,\n      \&quot;text\&quot;: \&quot;INC-481: elevated 5xx on checkout API. Investigating.\&quot;,\n      \&quot;reply_count\&quot;: 3\n    }\n  ],\n  \&quot;next_cursor\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>incident-mitigation</b> ·
+          storm #1<span class="why">answer mentions &#x27;200&#x27;; answer mentions &#x27;pool&#x27;; answer mentions one of [&#x27;Marcus&#x27;]</span></summary>
+          <p><b>Final answer:</b> INC-481 (elevated 5xx on checkout) is still being investigated; no mitigation yet.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0INCIDENT\&quot;,\n    \&quot;name\&quot;: \&quot;incidents\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730009000.000500\&quot;,\n      \&quot;user\&quot;: \&quot;U04LENA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Lena Fischer\&quot;,\n      \&quot;text\&quot;: \&quot;INC-482: login page images broken on Safari\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730002000.000100\&quot;,\n      \&quot;user\&quot;: \&quot;U02MARCUS\&quot;,\n      \&quot;user_name\&quot;: \&quot;Marcus Webb\&quot;,\n      \&quot;text\&quot;: \&quot;INC-481: elevated 5xx on checkout API. Investigating.\&quot;,\n      \&quot;reply_count\&quot;: 3\n    }\n  ],\n  \&quot;next_cursor\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>incident-mitigation</b> ·
+          storm #2<span class="why">answer mentions &#x27;200&#x27;; answer mentions &#x27;pool&#x27;; answer mentions one of [&#x27;Marcus&#x27;]</span></summary>
+          <p><b>Final answer:</b> INC-481 (elevated 5xx on checkout) is still being investigated; no mitigation yet.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0INCIDENT\&quot;,\n    \&quot;name\&quot;: \&quot;incidents\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730009000.000500\&quot;,\n      \&quot;user\&quot;: \&quot;U04LENA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Lena Fischer\&quot;,\n      \&quot;text\&quot;: \&quot;INC-482: login page images broken on Safari\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730002000.000100\&quot;,\n      \&quot;user\&quot;: \&quot;U02MARCUS\&quot;,\n      \&quot;user_name\&quot;: \&quot;Marcus Webb\&quot;,\n      \&quot;text\&quot;: \&quot;INC-481: elevated 5xx on checkout API. Investigating.\&quot;,\n      \&quot;reply_count\&quot;: 3\n    }\n  ],\n  \&quot;next_cursor\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>lookup-email-disambiguation</b> ·
+          clean #0<span class="why">answer mentions &#x27;priya.kumar@acme.dev&#x27;; answer avoids forbidden content — leaked: [&#x27;priya.shah@acme.dev&#x27;]</span></summary>
+          <p><b>Final answer:</b> Priya&#x27;s email is priya.shah@acme.dev.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_find_users&quot;,
+    &quot;args&quot;: {
+      &quot;query&quot;: &quot;priya&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;matches\&quot;: [\n    {\n      \&quot;id\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;handle\&quot;: \&quot;priya\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya\&quot;,\n      \&quot;title\&quot;: \&quot;Engineering Manager\&quot;,\n      \&quot;email\&quot;: \&quot;priya.shah@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U01PRIYA&gt;\&quot;\n    },\n    {\n      \&quot;id\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;handle\&quot;: \&quot;priya.k\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya.k\&quot;,\n      \&quot;title\&quot;: \&quot;Data Scientist\&quot;,\n      \&quot;email\&quot;: \&quot;priya.kumar@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U06PRIYAK&gt;\&quot;\n    }\n  ]\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>lookup-email-disambiguation</b> ·
+          clean #1<span class="why">answer mentions &#x27;priya.kumar@acme.dev&#x27;; answer avoids forbidden content — leaked: [&#x27;priya.shah@acme.dev&#x27;]</span></summary>
+          <p><b>Final answer:</b> Priya&#x27;s email is priya.shah@acme.dev.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_find_users&quot;,
+    &quot;args&quot;: {
+      &quot;query&quot;: &quot;priya&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;matches\&quot;: [\n    {\n      \&quot;id\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;handle\&quot;: \&quot;priya\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya\&quot;,\n      \&quot;title\&quot;: \&quot;Engineering Manager\&quot;,\n      \&quot;email\&quot;: \&quot;priya.shah@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U01PRIYA&gt;\&quot;\n    },\n    {\n      \&quot;id\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;handle\&quot;: \&quot;priya.k\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya.k\&quot;,\n      \&quot;title\&quot;: \&quot;Data Scientist\&quot;,\n      \&quot;email\&quot;: \&quot;priya.kumar@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U06PRIYAK&gt;\&quot;\n    }\n  ]\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>lookup-email-disambiguation</b> ·
+          clean #2<span class="why">answer mentions &#x27;priya.kumar@acme.dev&#x27;; answer avoids forbidden content — leaked: [&#x27;priya.shah@acme.dev&#x27;]</span></summary>
+          <p><b>Final answer:</b> Priya&#x27;s email is priya.shah@acme.dev.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_find_users&quot;,
+    &quot;args&quot;: {
+      &quot;query&quot;: &quot;priya&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;matches\&quot;: [\n    {\n      \&quot;id\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;handle\&quot;: \&quot;priya\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya\&quot;,\n      \&quot;title\&quot;: \&quot;Engineering Manager\&quot;,\n      \&quot;email\&quot;: \&quot;priya.shah@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U01PRIYA&gt;\&quot;\n    },\n    {\n      \&quot;id\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;handle\&quot;: \&quot;priya.k\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya.k\&quot;,\n      \&quot;title\&quot;: \&quot;Data Scientist\&quot;,\n      \&quot;email\&quot;: \&quot;priya.kumar@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U06PRIYAK&gt;\&quot;\n    }\n  ]\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>lookup-email-disambiguation</b> ·
+          chaos #0<span class="why">answer mentions &#x27;priya.kumar@acme.dev&#x27;; answer avoids forbidden content — leaked: [&#x27;priya.shah@acme.dev&#x27;]</span></summary>
+          <p><b>Final answer:</b> Priya&#x27;s email is priya.shah@acme.dev.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_find_users&quot;,
+    &quot;args&quot;: {
+      &quot;query&quot;: &quot;priya&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;matches\&quot;: [\n    {\n      \&quot;id\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;handle\&quot;: \&quot;priya\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya\&quot;,\n      \&quot;title\&quot;: \&quot;Engineering Manager\&quot;,\n      \&quot;email\&quot;: \&quot;priya.shah@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U01PRIYA&gt;\&quot;\n    },\n    {\n      \&quot;id\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;handle\&quot;: \&quot;priya.k\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya.k\&quot;,\n      \&quot;title\&quot;: \&quot;Data Scientist\&quot;,\n      \&quot;email\&quot;: \&quot;priya.kumar@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U06PRIYAK&gt;\&quot;\n    }\n  ]\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>lookup-email-disambiguation</b> ·
+          chaos #1<span class="why">answer mentions &#x27;priya.kumar@acme.dev&#x27;; answer avoids forbidden content — leaked: [&#x27;priya.shah@acme.dev&#x27;]</span></summary>
+          <p><b>Final answer:</b> Priya&#x27;s email is priya.shah@acme.dev.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_find_users&quot;,
+    &quot;args&quot;: {
+      &quot;query&quot;: &quot;priya&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;matches\&quot;: [\n    {\n      \&quot;id\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;handle\&quot;: \&quot;priya\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya\&quot;,\n      \&quot;title\&quot;: \&quot;Engineering Manager\&quot;,\n      \&quot;email\&quot;: \&quot;priya.shah@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U01PRIYA&gt;\&quot;\n    },\n    {\n      \&quot;id\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;handle\&quot;: \&quot;priya.k\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya.k\&quot;,\n      \&quot;title\&quot;: \&quot;Data Scientist\&quot;,\n      \&quot;email\&quot;: \&quot;priya.kumar@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U06PRIYAK&gt;\&quot;\n    }\n  ]\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>lookup-email-disambiguation</b> ·
+          chaos #2<span class="why">answer mentions &#x27;priya.kumar@acme.dev&#x27;; answer avoids forbidden content — leaked: [&#x27;priya.shah@acme.dev&#x27;]</span></summary>
+          <p><b>Final answer:</b> Priya&#x27;s email is priya.shah@acme.dev.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_find_users&quot;,
+    &quot;args&quot;: {
+      &quot;query&quot;: &quot;priya&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;matches\&quot;: [\n    {\n      \&quot;id\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;handle\&quot;: \&quot;priya\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya\&quot;,\n      \&quot;title\&quot;: \&quot;Engineering Manager\&quot;,\n      \&quot;email\&quot;: \&quot;priya.shah@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U01PRIYA&gt;\&quot;\n    },\n    {\n      \&quot;id\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;handle\&quot;: \&quot;priya.k\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya.k\&quot;,\n      \&quot;title\&quot;: \&quot;Data Scientist\&quot;,\n      \&quot;email\&quot;: \&quot;priya.kumar@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U06PRIYAK&gt;\&quot;\n    }\n  ]\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>lookup-email-disambiguation</b> ·
+          storm #0<span class="why">answer mentions &#x27;priya.kumar@acme.dev&#x27;; answer avoids forbidden content — leaked: [&#x27;priya.shah@acme.dev&#x27;]</span></summary>
+          <p><b>Final answer:</b> Priya&#x27;s email is priya.shah@acme.dev.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_find_users&quot;,
+    &quot;args&quot;: {
+      &quot;query&quot;: &quot;priya&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;matches\&quot;: [\n    {\n      \&quot;id\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;handle\&quot;: \&quot;priya\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya\&quot;,\n      \&quot;title\&quot;: \&quot;Engineering Manager\&quot;,\n      \&quot;email\&quot;: \&quot;priya.shah@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U01PRIYA&gt;\&quot;\n    },\n    {\n      \&quot;id\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;handle\&quot;: \&quot;priya.k\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya.k\&quot;,\n      \&quot;title\&quot;: \&quot;Data Scientist\&quot;,\n      \&quot;email\&quot;: \&quot;priya.kumar@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U06PRIYAK&gt;\&quot;\n    }\n  ]\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>lookup-email-disambiguation</b> ·
+          storm #1<span class="why">answer mentions &#x27;priya.kumar@acme.dev&#x27;; answer avoids forbidden content — leaked: [&#x27;priya.shah@acme.dev&#x27;]</span></summary>
+          <p><b>Final answer:</b> Priya&#x27;s email is priya.shah@acme.dev.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_find_users&quot;,
+    &quot;args&quot;: {
+      &quot;query&quot;: &quot;priya&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;matches\&quot;: [\n    {\n      \&quot;id\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;handle\&quot;: \&quot;priya\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya\&quot;,\n      \&quot;title\&quot;: \&quot;Engineering Manager\&quot;,\n      \&quot;email\&quot;: \&quot;priya.shah@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U01PRIYA&gt;\&quot;\n    },\n    {\n      \&quot;id\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;handle\&quot;: \&quot;priya.k\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya.k\&quot;,\n      \&quot;title\&quot;: \&quot;Data Scientist\&quot;,\n      \&quot;email\&quot;: \&quot;priya.kumar@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U06PRIYAK&gt;\&quot;\n    }\n  ]\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>lookup-email-disambiguation</b> ·
+          storm #2<span class="why">answer mentions &#x27;priya.kumar@acme.dev&#x27;; answer avoids forbidden content — leaked: [&#x27;priya.shah@acme.dev&#x27;]</span></summary>
+          <p><b>Final answer:</b> Priya&#x27;s email is priya.shah@acme.dev.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_find_users&quot;,
+    &quot;args&quot;: {
+      &quot;query&quot;: &quot;priya&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;matches\&quot;: [\n    {\n      \&quot;id\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;handle\&quot;: \&quot;priya\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya\&quot;,\n      \&quot;title\&quot;: \&quot;Engineering Manager\&quot;,\n      \&quot;email\&quot;: \&quot;priya.shah@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U01PRIYA&gt;\&quot;\n    },\n    {\n      \&quot;id\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;handle\&quot;: \&quot;priya.k\&quot;,\n      \&quot;real_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;display_name\&quot;: \&quot;priya.k\&quot;,\n      \&quot;title\&quot;: \&quot;Data Scientist\&quot;,\n      \&quot;email\&quot;: \&quot;priya.kumar@acme.dev\&quot;,\n      \&quot;is_bot\&quot;: false,\n      \&quot;mention\&quot;: \&quot;&lt;@U06PRIYAK&gt;\&quot;\n    }\n  ]\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>no-access-leadership</b> ·
+          clean #0<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> I don&#x27;t have access yet, so I asked in #general to be added.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;#leadership&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_get_messages: {\&quot;error\&quot;: \&quot;channel_not_found\&quot;, \&quot;message\&quot;: \&quot;No channel named &#x27;#leadership&#x27; is visible to the bot.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel doesn&#x27;t exist or the bot can&#x27;t see it (private channels need an invite).\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Could someone add me to #leadership?&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>no-access-leadership</b> ·
+          clean #1<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> I don&#x27;t have access yet, so I asked in #general to be added.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;#leadership&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_get_messages: {\&quot;error\&quot;: \&quot;channel_not_found\&quot;, \&quot;message\&quot;: \&quot;No channel named &#x27;#leadership&#x27; is visible to the bot.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel doesn&#x27;t exist or the bot can&#x27;t see it (private channels need an invite).\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Could someone add me to #leadership?&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>no-access-leadership</b> ·
+          clean #2<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> I don&#x27;t have access yet, so I asked in #general to be added.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;#leadership&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_get_messages: {\&quot;error\&quot;: \&quot;channel_not_found\&quot;, \&quot;message\&quot;: \&quot;No channel named &#x27;#leadership&#x27; is visible to the bot.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel doesn&#x27;t exist or the bot can&#x27;t see it (private channels need an invite).\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Could someone add me to #leadership?&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>no-access-leadership</b> ·
+          chaos #0<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> I don&#x27;t have access yet, so I asked in #general to be added.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;#leadership&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_get_messages: {\&quot;error\&quot;: \&quot;channel_not_found\&quot;, \&quot;message\&quot;: \&quot;No channel named &#x27;#leadership&#x27; is visible to the bot.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel doesn&#x27;t exist or the bot can&#x27;t see it (private channels need an invite).\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Could someone add me to #leadership?&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>no-access-leadership</b> ·
+          chaos #1<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> I don&#x27;t have access yet, so I asked in #general to be added.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;#leadership&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_get_messages: {\&quot;error\&quot;: \&quot;channel_not_found\&quot;, \&quot;message\&quot;: \&quot;No channel named &#x27;#leadership&#x27; is visible to the bot.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel doesn&#x27;t exist or the bot can&#x27;t see it (private channels need an invite).\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Could someone add me to #leadership?&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>no-access-leadership</b> ·
+          chaos #2<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> I don&#x27;t have access yet, so I asked in #general to be added.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;#leadership&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_get_messages: {\&quot;error\&quot;: \&quot;channel_not_found\&quot;, \&quot;message\&quot;: \&quot;No channel named &#x27;#leadership&#x27; is visible to the bot.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel doesn&#x27;t exist or the bot can&#x27;t see it (private channels need an invite).\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Could someone add me to #leadership?&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;attempts\&quot;: 2\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>no-access-leadership</b> ·
+          storm #0<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> I don&#x27;t have access yet, so I asked in #general to be added.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;#leadership&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_get_messages: {\&quot;error\&quot;: \&quot;channel_not_found\&quot;, \&quot;message\&quot;: \&quot;No channel named &#x27;#leadership&#x27; is visible to the bot.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel doesn&#x27;t exist or the bot can&#x27;t see it (private channels need an invite).\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Could someone add me to #leadership?&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>no-access-leadership</b> ·
+          storm #1<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> I don&#x27;t have access yet, so I asked in #general to be added.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;#leadership&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_get_messages: {\&quot;error\&quot;: \&quot;ratelimited\&quot;, \&quot;message\&quot;: \&quot;conversations.list rate limited; retry after 13s\&quot;, \&quot;retryable\&quot;: true, \&quot;hint\&quot;: \&quot;Slack is rate limiting this method. Wait retry_after_seconds before retrying.\&quot;, \&quot;retry_after_seconds\&quot;: 13.0}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Could someone add me to #leadership?&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>no-access-leadership</b> ·
+          storm #2<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> I don&#x27;t have access yet, so I asked in #general to be added.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;#leadership&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_get_messages: {\&quot;error\&quot;: \&quot;channel_not_found\&quot;, \&quot;message\&quot;: \&quot;No channel named &#x27;#leadership&#x27; is visible to the bot.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel doesn&#x27;t exist or the bot can&#x27;t see it (private channels need an invite).\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Could someone add me to #leadership?&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>reply-in-release-thread</b> ·
+          clean #0<span class="why">post[0] in #releases thread 1730008200.000300 — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the verification in #releases.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0RELEASES\&quot;,\n    \&quot;name\&quot;: \&quot;releases\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730008200.000300\&quot;,\n      \&quot;user\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;text\&quot;: \&quot;Prod deploy for 4.2 is complete :tada: please report any issues in this thread\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730006000.000250\&quot;,\n      \&quot;user\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;text\&quot;: \&quot;Dashboards for 4.2 adoption are live\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730004600.000200\&quot;,\n      \&quot;user\&quot;: \&quot;U03DIEGO\&quot;,\n      \&quot;user_name\&quot;: \&quot;Diego Alvarez\&quot;,\n      \&quot;text\&quot;: \&quot;4.2 staging looks good, promoting to pr&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Verified on prod, all green ✅&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>reply-in-release-thread</b> ·
+          clean #1<span class="why">post[0] in #releases thread 1730008200.000300 — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the verification in #releases.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0RELEASES\&quot;,\n    \&quot;name\&quot;: \&quot;releases\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730008200.000300\&quot;,\n      \&quot;user\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;text\&quot;: \&quot;Prod deploy for 4.2 is complete :tada: please report any issues in this thread\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730006000.000250\&quot;,\n      \&quot;user\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;text\&quot;: \&quot;Dashboards for 4.2 adoption are live\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730004600.000200\&quot;,\n      \&quot;user\&quot;: \&quot;U03DIEGO\&quot;,\n      \&quot;user_name\&quot;: \&quot;Diego Alvarez\&quot;,\n      \&quot;text\&quot;: \&quot;4.2 staging looks good, promoting to pr&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Verified on prod, all green ✅&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>reply-in-release-thread</b> ·
+          clean #2<span class="why">post[0] in #releases thread 1730008200.000300 — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the verification in #releases.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0RELEASES\&quot;,\n    \&quot;name\&quot;: \&quot;releases\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730008200.000300\&quot;,\n      \&quot;user\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;text\&quot;: \&quot;Prod deploy for 4.2 is complete :tada: please report any issues in this thread\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730006000.000250\&quot;,\n      \&quot;user\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;text\&quot;: \&quot;Dashboards for 4.2 adoption are live\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730004600.000200\&quot;,\n      \&quot;user\&quot;: \&quot;U03DIEGO\&quot;,\n      \&quot;user_name\&quot;: \&quot;Diego Alvarez\&quot;,\n      \&quot;text\&quot;: \&quot;4.2 staging looks good, promoting to pr&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Verified on prod, all green ✅&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>reply-in-release-thread</b> ·
+          chaos #0<span class="why">post[0] in #releases thread 1730008200.000300 — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the verification in #releases.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0RELEASES\&quot;,\n    \&quot;name\&quot;: \&quot;releases\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730008200.000300\&quot;,\n      \&quot;user\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;text\&quot;: \&quot;Prod deploy for 4.2 is complete :tada: please report any issues in this thread\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730006000.000250\&quot;,\n      \&quot;user\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;text\&quot;: \&quot;Dashboards for 4.2 adoption are live\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730004600.000200\&quot;,\n      \&quot;user\&quot;: \&quot;U03DIEGO\&quot;,\n      \&quot;user_name\&quot;: \&quot;Diego Alvarez\&quot;,\n      \&quot;text\&quot;: \&quot;4.2 staging looks good, promoting to pr&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Verified on prod, all green ✅&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>reply-in-release-thread</b> ·
+          chaos #1<span class="why">post[0] in #releases thread 1730008200.000300 — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the verification in #releases.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0RELEASES\&quot;,\n    \&quot;name\&quot;: \&quot;releases\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730008200.000300\&quot;,\n      \&quot;user\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;text\&quot;: \&quot;Prod deploy for 4.2 is complete :tada: please report any issues in this thread\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730006000.000250\&quot;,\n      \&quot;user\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;text\&quot;: \&quot;Dashboards for 4.2 adoption are live\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730004600.000200\&quot;,\n      \&quot;user\&quot;: \&quot;U03DIEGO\&quot;,\n      \&quot;user_name\&quot;: \&quot;Diego Alvarez\&quot;,\n      \&quot;text\&quot;: \&quot;4.2 staging looks good, promoting to pr&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Verified on prod, all green ✅&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>reply-in-release-thread</b> ·
+          chaos #2<span class="why">post[0] in #releases thread 1730008200.000300 — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the verification in #releases.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0RELEASES\&quot;,\n    \&quot;name\&quot;: \&quot;releases\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730008200.000300\&quot;,\n      \&quot;user\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;text\&quot;: \&quot;Prod deploy for 4.2 is complete :tada: please report any issues in this thread\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730006000.000250\&quot;,\n      \&quot;user\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;text\&quot;: \&quot;Dashboards for 4.2 adoption are live\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730004600.000200\&quot;,\n      \&quot;user\&quot;: \&quot;U03DIEGO\&quot;,\n      \&quot;user_name\&quot;: \&quot;Diego Alvarez\&quot;,\n      \&quot;text\&quot;: \&quot;4.2 staging looks good, promoting to pr&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Verified on prod, all green ✅&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>reply-in-release-thread</b> ·
+          storm #0<span class="why">post[0] in #releases thread 1730008200.000300 — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the verification in #releases.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0RELEASES\&quot;,\n    \&quot;name\&quot;: \&quot;releases\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730008200.000300\&quot;,\n      \&quot;user\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;text\&quot;: \&quot;Prod deploy for 4.2 is complete :tada: please report any issues in this thread\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730006000.000250\&quot;,\n      \&quot;user\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;text\&quot;: \&quot;Dashboards for 4.2 adoption are live\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730004600.000200\&quot;,\n      \&quot;user\&quot;: \&quot;U03DIEGO\&quot;,\n      \&quot;user_name\&quot;: \&quot;Diego Alvarez\&quot;,\n      \&quot;text\&quot;: \&quot;4.2 staging looks good, promoting to pr&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Verified on prod, all green ✅&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>reply-in-release-thread</b> ·
+          storm #1<span class="why">post[0] in #releases thread 1730008200.000300 — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the verification in #releases.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0RELEASES\&quot;,\n    \&quot;name\&quot;: \&quot;releases\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730008200.000300\&quot;,\n      \&quot;user\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;text\&quot;: \&quot;Prod deploy for 4.2 is complete :tada: please report any issues in this thread\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730006000.000250\&quot;,\n      \&quot;user\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;text\&quot;: \&quot;Dashboards for 4.2 adoption are live\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730004600.000200\&quot;,\n      \&quot;user\&quot;: \&quot;U03DIEGO\&quot;,\n      \&quot;user_name\&quot;: \&quot;Diego Alvarez\&quot;,\n      \&quot;text\&quot;: \&quot;4.2 staging looks good, promoting to pr&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Verified on prod, all green ✅&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>reply-in-release-thread</b> ·
+          storm #2<span class="why">post[0] in #releases thread 1730008200.000300 — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the verification in #releases.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0RELEASES\&quot;,\n    \&quot;name\&quot;: \&quot;releases\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730008200.000300\&quot;,\n      \&quot;user\&quot;: \&quot;U01PRIYA\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Shah\&quot;,\n      \&quot;text\&quot;: \&quot;Prod deploy for 4.2 is complete :tada: please report any issues in this thread\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730006000.000250\&quot;,\n      \&quot;user\&quot;: \&quot;U06PRIYAK\&quot;,\n      \&quot;user_name\&quot;: \&quot;Priya Kumar\&quot;,\n      \&quot;text\&quot;: \&quot;Dashboards for 4.2 adoption are live\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730004600.000200\&quot;,\n      \&quot;user\&quot;: \&quot;U03DIEGO\&quot;,\n      \&quot;user_name\&quot;: \&quot;Diego Alvarez\&quot;,\n      \&quot;text\&quot;: \&quot;4.2 staging looks good, promoting to pr&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Verified on prod, all green ✅&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>rsvp-offsite</b> ·
+          clean #0<span class="why">reaction[0] +1/thumbsup on 1730010000.000100; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> RSVP&#x27;d in #general.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0GENERAL\&quot;,\n    \&quot;name\&quot;: \&quot;general\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730011173.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000018\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen18\&quot;,\n      \&quot;text\&quot;: \&quot;lgtm, merging #29\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011136.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000016\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen16\&quot;,\n      \&quot;text\&quot;: \&quot;pushed a fix for issue 28\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011099.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000039\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen39\&quot;,\n      \&quot;text\&quot;: \&quot;reminder: retro at 3pm (item 27)\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011062.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000029\&quot;,\n      &quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;RSVP: yes to the offsite! 👍&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>rsvp-offsite</b> ·
+          clean #1<span class="why">reaction[0] +1/thumbsup on 1730010000.000100; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> RSVP&#x27;d in #general.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0GENERAL\&quot;,\n    \&quot;name\&quot;: \&quot;general\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730011173.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000018\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen18\&quot;,\n      \&quot;text\&quot;: \&quot;lgtm, merging #29\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011136.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000016\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen16\&quot;,\n      \&quot;text\&quot;: \&quot;pushed a fix for issue 28\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011099.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000039\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen39\&quot;,\n      \&quot;text\&quot;: \&quot;reminder: retro at 3pm (item 27)\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011062.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000029\&quot;,\n      &quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;RSVP: yes to the offsite! 👍&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>rsvp-offsite</b> ·
+          clean #2<span class="why">reaction[0] +1/thumbsup on 1730010000.000100; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> RSVP&#x27;d in #general.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0GENERAL\&quot;,\n    \&quot;name\&quot;: \&quot;general\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730011173.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000018\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen18\&quot;,\n      \&quot;text\&quot;: \&quot;lgtm, merging #29\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011136.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000016\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen16\&quot;,\n      \&quot;text\&quot;: \&quot;pushed a fix for issue 28\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011099.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000039\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen39\&quot;,\n      \&quot;text\&quot;: \&quot;reminder: retro at 3pm (item 27)\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011062.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000029\&quot;,\n      &quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;RSVP: yes to the offsite! 👍&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>rsvp-offsite</b> ·
+          chaos #0<span class="why">reaction[0] +1/thumbsup on 1730010000.000100; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> RSVP&#x27;d in #general.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0GENERAL\&quot;,\n    \&quot;name\&quot;: \&quot;general\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730011173.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000018\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen18\&quot;,\n      \&quot;text\&quot;: \&quot;lgtm, merging #29\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011136.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000016\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen16\&quot;,\n      \&quot;text\&quot;: \&quot;pushed a fix for issue 28\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011099.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000039\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen39\&quot;,\n      \&quot;text\&quot;: \&quot;reminder: retro at 3pm (item 27)\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011062.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000029\&quot;,\n      &quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;RSVP: yes to the offsite! 👍&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>rsvp-offsite</b> ·
+          chaos #1<span class="why">reaction[0] +1/thumbsup on 1730010000.000100; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> RSVP&#x27;d in #general.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0GENERAL\&quot;,\n    \&quot;name\&quot;: \&quot;general\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730011173.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000018\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen18\&quot;,\n      \&quot;text\&quot;: \&quot;lgtm, merging #29\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011136.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000016\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen16\&quot;,\n      \&quot;text\&quot;: \&quot;pushed a fix for issue 28\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011099.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000039\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen39\&quot;,\n      \&quot;text\&quot;: \&quot;reminder: retro at 3pm (item 27)\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011062.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000029\&quot;,\n      &quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;RSVP: yes to the offsite! 👍&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>rsvp-offsite</b> ·
+          chaos #2<span class="why">reaction[0] +1/thumbsup on 1730010000.000100; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> RSVP&#x27;d in #general.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0GENERAL\&quot;,\n    \&quot;name\&quot;: \&quot;general\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730011173.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000018\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen18\&quot;,\n      \&quot;text\&quot;: \&quot;lgtm, merging #29\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011136.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000016\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen16\&quot;,\n      \&quot;text\&quot;: \&quot;pushed a fix for issue 28\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011099.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000039\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen39\&quot;,\n      \&quot;text\&quot;: \&quot;reminder: retro at 3pm (item 27)\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011062.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000029\&quot;,\n      &quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;RSVP: yes to the offsite! 👍&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;attempts\&quot;: 2\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>rsvp-offsite</b> ·
+          storm #0<span class="why">reaction[0] +1/thumbsup on 1730010000.000100; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> RSVP&#x27;d in #general.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;channel\&quot;: {\n    \&quot;id\&quot;: \&quot;C0GENERAL\&quot;,\n    \&quot;name\&quot;: \&quot;general\&quot;\n  },\n  \&quot;messages\&quot;: [\n    {\n      \&quot;ts\&quot;: \&quot;1730011173.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000018\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen18\&quot;,\n      \&quot;text\&quot;: \&quot;lgtm, merging #29\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011136.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000016\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen16\&quot;,\n      \&quot;text\&quot;: \&quot;pushed a fix for issue 28\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011099.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000039\&quot;,\n      \&quot;user_name\&quot;: \&quot;Jordan Gen39\&quot;,\n      \&quot;text\&quot;: \&quot;reminder: retro at 3pm (item 27)\&quot;\n    },\n    {\n      \&quot;ts\&quot;: \&quot;1730011062.000000\&quot;,\n      \&quot;user\&quot;: \&quot;U1000029\&quot;,\n      &quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;RSVP: yes to the offsite! 👍&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>rsvp-offsite</b> ·
+          storm #1<span class="why">reaction[0] +1/thumbsup on 1730010000.000100; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> RSVP&#x27;d in #general.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_get_messages: {\&quot;error\&quot;: \&quot;ratelimited\&quot;, \&quot;message\&quot;: \&quot;conversations.list rate limited; retry after 6s\&quot;, \&quot;retryable\&quot;: true, \&quot;hint\&quot;: \&quot;Slack is rate limiting this method. Wait retry_after_seconds before retrying.\&quot;, \&quot;retry_after_seconds\&quot;: 6.0}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;RSVP: yes to the offsite! 👍&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>rsvp-offsite</b> ·
+          storm #2<span class="why">reaction[0] +1/thumbsup on 1730010000.000100; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> RSVP&#x27;d in #general.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_get_messages&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_get_messages: {\&quot;error\&quot;: \&quot;server_error\&quot;, \&quot;message\&quot;: \&quot;conversations.list: HTTP 503\&quot;, \&quot;retryable\&quot;: true}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;RSVP: yes to the offsite! 👍&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>oncall-handoff</b> ·
+          clean #0<span class="why">post[0] in #oncall — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the handoff.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;,
+      &quot;text&quot;: &quot;Handoff: INC-482 still open, owner Lena.&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0INCIDENT\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>oncall-handoff</b> ·
+          clean #1<span class="why">post[0] in #oncall — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the handoff.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;,
+      &quot;text&quot;: &quot;Handoff: INC-482 still open, owner Lena.&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0INCIDENT\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>oncall-handoff</b> ·
+          clean #2<span class="why">post[0] in #oncall — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the handoff.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;,
+      &quot;text&quot;: &quot;Handoff: INC-482 still open, owner Lena.&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0INCIDENT\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>oncall-handoff</b> ·
+          chaos #0<span class="why">post[0] in #oncall — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the handoff.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;,
+      &quot;text&quot;: &quot;Handoff: INC-482 still open, owner Lena.&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0INCIDENT\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>oncall-handoff</b> ·
+          chaos #1<span class="why">post[0] in #oncall — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the handoff.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;,
+      &quot;text&quot;: &quot;Handoff: INC-482 still open, owner Lena.&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0INCIDENT\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>oncall-handoff</b> ·
+          chaos #2<span class="why">post[0] in #oncall — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the handoff.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;,
+      &quot;text&quot;: &quot;Handoff: INC-482 still open, owner Lena.&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0INCIDENT\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>oncall-handoff</b> ·
+          storm #0<span class="why">post[0] in #oncall — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the handoff.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;,
+      &quot;text&quot;: &quot;Handoff: INC-482 still open, owner Lena.&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0INCIDENT\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>oncall-handoff</b> ·
+          storm #1<span class="why">post[0] in #oncall — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the handoff.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;,
+      &quot;text&quot;: &quot;Handoff: INC-482 still open, owner Lena.&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0INCIDENT\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>oncall-handoff</b> ·
+          storm #2<span class="why">post[0] in #oncall — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the handoff.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;incidents&quot;,
+      &quot;text&quot;: &quot;Handoff: INC-482 still open, owner Lena.&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0INCIDENT\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>archived-design</b> ·
+          clean #0<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the update in #general since #design is archived.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;design&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_send_message: {\&quot;error\&quot;: \&quot;is_archived\&quot;, \&quot;message\&quot;: \&quot;#design is archived; messages cannot be posted there.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel is archived and read-only. Tell the user instead of posting somewhere else.\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>archived-design</b> ·
+          clean #1<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the update in #general since #design is archived.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;design&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_send_message: {\&quot;error\&quot;: \&quot;is_archived\&quot;, \&quot;message\&quot;: \&quot;#design is archived; messages cannot be posted there.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel is archived and read-only. Tell the user instead of posting somewhere else.\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>archived-design</b> ·
+          clean #2<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the update in #general since #design is archived.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;design&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_send_message: {\&quot;error\&quot;: \&quot;is_archived\&quot;, \&quot;message\&quot;: \&quot;#design is archived; messages cannot be posted there.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel is archived and read-only. Tell the user instead of posting somewhere else.\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>archived-design</b> ·
+          chaos #0<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the update in #general since #design is archived.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;design&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_send_message: {\&quot;error\&quot;: \&quot;is_archived\&quot;, \&quot;message\&quot;: \&quot;#design is archived; messages cannot be posted there.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel is archived and read-only. Tell the user instead of posting somewhere else.\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;attempts\&quot;: 2\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>archived-design</b> ·
+          chaos #1<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the update in #general since #design is archived.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;design&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_send_message: {\&quot;error\&quot;: \&quot;is_archived\&quot;, \&quot;message\&quot;: \&quot;#design is archived; messages cannot be posted there.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel is archived and read-only. Tell the user instead of posting somewhere else.\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>archived-design</b> ·
+          chaos #2<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the update in #general since #design is archived.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;design&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_send_message: {\&quot;error\&quot;: \&quot;is_archived\&quot;, \&quot;message\&quot;: \&quot;#design is archived; messages cannot be posted there.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel is archived and read-only. Tell the user instead of posting somewhere else.\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;attempts\&quot;: 3\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>archived-design</b> ·
+          storm #0<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the update in #general since #design is archived.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;design&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_send_message: {\&quot;error\&quot;: \&quot;is_archived\&quot;, \&quot;message\&quot;: \&quot;#design is archived; messages cannot be posted there.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel is archived and read-only. Tell the user instead of posting somewhere else.\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>archived-design</b> ·
+          storm #1<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the update in #general since #design is archived.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;design&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_send_message: {\&quot;error\&quot;: \&quot;is_archived\&quot;, \&quot;message\&quot;: \&quot;#design is archived; messages cannot be posted there.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel is archived and read-only. Tell the user instead of posting somewhere else.\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>archived-design</b> ·
+          storm #2<span class="why">no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Posted the update in #general since #design is archived.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;design&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: true,
+    &quot;error_kind&quot;: &quot;runtime&quot;,
+    &quot;result&quot;: &quot;Error executing tool slack_send_message: {\&quot;error\&quot;: \&quot;is_archived\&quot;, \&quot;message\&quot;: \&quot;#design is archived; messages cannot be posted there.\&quot;, \&quot;retryable\&quot;: false, \&quot;hint\&quot;: \&quot;The channel is archived and read-only. Tell the user instead of posting somewhere else.\&quot;}&quot;
+  },
+  {
+    &quot;turn&quot;: 2,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;general&quot;,
+      &quot;text&quot;: &quot;Design review moved to Thursday&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0GENERAL\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>announce-with-mention</b> ·
+          clean #0<span class="why">post[0] in #releases — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Announced 4.3 in #releases and mentioned Diego.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Release 4.3 is cut, @Diego FYI&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>announce-with-mention</b> ·
+          clean #1<span class="why">post[0] in #releases — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Announced 4.3 in #releases and mentioned Diego.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Release 4.3 is cut, @Diego FYI&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>announce-with-mention</b> ·
+          clean #2<span class="why">post[0] in #releases — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Announced 4.3 in #releases and mentioned Diego.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Release 4.3 is cut, @Diego FYI&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>announce-with-mention</b> ·
+          chaos #0<span class="why">post[0] in #releases — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Announced 4.3 in #releases and mentioned Diego.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Release 4.3 is cut, @Diego FYI&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>announce-with-mention</b> ·
+          chaos #1<span class="why">post[0] in #releases — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Announced 4.3 in #releases and mentioned Diego.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Release 4.3 is cut, @Diego FYI&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>announce-with-mention</b> ·
+          chaos #2<span class="why">post[0] in #releases — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Announced 4.3 in #releases and mentioned Diego.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Release 4.3 is cut, @Diego FYI&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details><details><summary><code>mock:flawed</code> · <b>announce-with-mention</b> ·
+          storm #0<span class="why">post[0] in #releases — no matching message was posted; no unintended side effects — 1 unexpected mutation(s), 0 duplicate post(s)</span></summary>
+          <p><b>Final answer:</b> Announced 4.3 in #releases and mentioned Diego.</p><pre>[
+  {
+    &quot;turn&quot;: 1,
+    &quot;tool&quot;: &quot;slack_send_message&quot;,
+    &quot;args&quot;: {
+      &quot;channel&quot;: &quot;releases&quot;,
+      &quot;text&quot;: &quot;Release 4.3 is cut, @Diego FYI&quot;
+    },
+    &quot;is_error&quot;: false,
+    &quot;error_kind&quot;: null,
+    &quot;result&quot;: &quot;{\n  \&quot;ok\&quot;: true,\n  \&quot;channel\&quot;: \&quot;C0RELEASES\&quot;,\n  \&quot;ts\&quot;: \&quot;1730011234.000000\&quot;,\n  \&quot;thread_ts\&quot;: null,\n  \&quot;recovered\&quot;: true\n}&quot;
+  }
+]</pre></details>
+<p class="note">Outcome is graded on the twin's mutation journal, not on matching a golden trajectory. Resilience
+= stress pass rate ÷ clean pass rate. Blast radius = mean unrequested mutations per trial. pass^k = share of
+cases passed in every trial.</p>
+</main></body></html>
