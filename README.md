@@ -121,6 +121,8 @@ make eval        # offline eval of the scripted agents -> reports/latest/report.
 make lint-tools  # strict lint of our own MCP tool schemas with the Go linter
 ```
 
+**Test inventory (current code): 65 cases** — 50 Python pytest cases (49 test functions, one parameterized with two cases) plus 15 Go test functions. The `make test` target runs both suites, and GitHub Actions separately runs Python tests, Go tests, and the Go-backed MCP evaluation quality gate.
+
 ### Evaluate real models
 
 ```bash
